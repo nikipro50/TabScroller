@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "tabscroller",
+  "version": "${version}",
+  "name": "TabScroller",
+  "description": "TabScroller lets you scroll through multiple pages of the player tab list, showing all players on crowded servers.",
+  "authors": [
+    "nikipro50"
+  ],
+  "contact": {
+    "sources": "https://github.com/nikipro50/TabScroller"
+  },
+  "license": "MIT",
+  "icon": "assets/tabscroller/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.nikipro50.tabscroller.TabscrollerClient"
+    ]
+  },
+  "mixins": [
+    "tabscroller.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "fabricloader": ">=${loader_version}",
+    "minecraft": ">=${minecraft_version}"
+  }
+}
