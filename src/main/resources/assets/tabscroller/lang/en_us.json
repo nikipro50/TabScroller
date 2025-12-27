@@ -1,5 +1,4 @@
 {
   "key.categories.tabscroller": "Tab Scroller",
-  "key.tabscroller.next": "Next Tab Page",
-  "key.tabscroller.prev": "Previous Tab Page"
+  "key.config.open": "Open Config"
 }

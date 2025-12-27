@@ -1,5 +1,6 @@
 package dev.nikipro50.tabscroller.handler;
 
+import dev.nikipro50.tabscroller.config.manager.ConfigManager;
 import dev.nikipro50.tabscroller.storage.LocalStorage;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.util.InputUtil;
@@ -20,7 +21,13 @@ public class TabInputHandler {
                     isLeftArrowDown = InputUtil.isKeyPressed(handle, GLFW.GLFW_KEY_LEFT),
                     isRightArrowDown = InputUtil.isKeyPressed(handle, GLFW.GLFW_KEY_RIGHT);
 
-            if (!isTabPressed) return;
+            if (!isTabPressed) {
+                if (LocalStorage.TAB_PAGE == 0) return;
+                if (!ConfigManager.CONFIG.resetTabOnRelease) return;
+
+                LocalStorage.TAB_PAGE = 0;
+                return;
+            }
             int total = client.getNetworkHandler().getPlayerList().size();
 
             if (isLeftArrowDown) {
