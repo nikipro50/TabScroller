@@ -37,6 +37,40 @@ public class ConfigScreen {
                         .build()
         );
 
+        general.addEntry(
+                entryBuilder
+                        .startBooleanToggle(
+                                Text.literal("Wrap Navigation"),
+                                ConfigManager.CONFIG.wrapNavigation
+                        )
+                        .setDefaultValue(true)
+                        .setSaveConsumer(value -> ConfigManager.CONFIG.wrapNavigation = value)
+                        .setTooltip(
+                                Text.literal("If enabled, pressing LEFT on the first page or RIGHT on the last page wraps around.")
+                                        .formatted(Formatting.DARK_GREEN),
+                                Text.literal("If disabled, navigation stops at first/last page.")
+                                        .formatted(Formatting.RED)
+                        )
+                        .build()
+        );
+
+        general.addEntry(
+                entryBuilder
+                        .startBooleanToggle(
+                                Text.literal("Scroll Mouse"),
+                                ConfigManager.CONFIG.scrollMouse
+                        )
+                        .setDefaultValue(true)
+                        .setSaveConsumer(value -> ConfigManager.CONFIG.scrollMouse = value)
+                        .setTooltip(
+                                Text.literal("Enable or disable changing TAB pages using the mouse scroll wheel.")
+                                        .formatted(Formatting.DARK_GREEN),
+                                Text.literal("If disabled, only arrow keys will change pages.")
+                                        .formatted(Formatting.RED)
+                        )
+                        .build()
+        );
+
         return builder.build();
     }
 }

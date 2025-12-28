@@ -9,10 +9,10 @@ public class ConfigKeyHandler {
     public static void register() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (ConfigKeyRegister.openConfigKey.wasPressed()) {
-                if (client.currentScreen == null) {
-                    Screen screen = ConfigScreen.create(client.currentScreen);
-                    client.setScreen(screen);
-                }
+                if (client.currentScreen != null) continue;
+
+                Screen screen = ConfigScreen.create(client.currentScreen);
+                client.setScreen(screen);
             }
         });
     }

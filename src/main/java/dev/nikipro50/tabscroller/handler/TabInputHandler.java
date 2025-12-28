@@ -22,20 +22,30 @@ public class TabInputHandler {
                     isRightArrowDown = InputUtil.isKeyPressed(handle, GLFW.GLFW_KEY_RIGHT);
 
             if (!isTabPressed) {
+                leftArrowPressed = false;
+                rightArrowPressed = false;
+
                 if (LocalStorage.TAB_PAGE == 0) return;
                 if (!ConfigManager.CONFIG.resetTabOnRelease) return;
 
                 LocalStorage.TAB_PAGE = 0;
                 return;
             }
+
             int total = client.getNetworkHandler().getPlayerList().size();
+            int maxPages = Math.max(1, (int) Math.ceil(Math.max(0, total - 80) / 20.0));
 
             if (isLeftArrowDown) {
                 if (leftArrowPressed) return;
 
                 leftArrowPressed = true;
-                if (LocalStorage.TAB_PAGE <= 0) return;
+                if (ConfigManager.CONFIG.wrapNavigation) {
+                    LocalStorage.TAB_PAGE =
+                            (LocalStorage.TAB_PAGE - 1 + maxPages) % maxPages;
+                    return;
+                }
 
+                if (LocalStorage.TAB_PAGE <= 0) return;
                 LocalStorage.TAB_PAGE--;
             } else {
                 leftArrowPressed = false;
@@ -45,8 +55,14 @@ public class TabInputHandler {
                 if (rightArrowPressed) return;
 
                 rightArrowPressed = true;
-                if (80 + (LocalStorage.TAB_PAGE * 20) >= total) return;
+                if (ConfigManager.CONFIG.wrapNavigation) {
+                    LocalStorage.TAB_PAGE =
+                            (LocalStorage.TAB_PAGE + 1) % maxPages;
 
+                    return;
+                }
+
+                if (LocalStorage.TAB_PAGE >= maxPages - 1) return;
                 LocalStorage.TAB_PAGE++;
             } else {
                 rightArrowPressed = false;
